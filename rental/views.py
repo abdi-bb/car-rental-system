@@ -10,7 +10,6 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 
 from .permissions import IsAdminOrReadOnly
-from .pagination import DefaultPagination
 from .filters import BookingFilter, CarFilter
 from .models import Booking, Car, Review, Customer
 from .serializers import BookingSerializer, CarSerializer, ReviewSerializer, CustomerSerializer
