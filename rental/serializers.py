@@ -22,6 +22,8 @@ class CustomerSerializer(serializers.ModelSerializer):
     
 
 class BookingSerializer(serializers.ModelSerializer):
+    customer = CustomerSerializer(read_only=True)
+    car = CarSerializer
     class Meta:
         model = Booking
         fields = ['id', 'start_date', 'end_date', 'customer', 'car', 'total_price']
@@ -29,14 +31,15 @@ class BookingSerializer(serializers.ModelSerializer):
     # car = serializers.PrimaryKeyRelatedField(queryset=Car.objects.all())
     # customer = CustomerSerializer()
     # car = CarSerializer()
-    customer = serializers.HyperlinkedRelatedField(
-        queryset=Customer.objects.all(),
-        view_name='customer-detail'
-    )
-    car = serializers.HyperlinkedRelatedField(
-        queryset=Car.objects.all(),
-        view_name='car-detail'
-    )
+    # customer = serializers.HyperlinkedRelatedField(
+    #     queryset=Customer.objects.all(),
+    #     view_name='customer-detail'
+    # )
+    # car = serializers.HyperlinkedRelatedField(
+    #     queryset=Car.objects.all(),
+    #     view_name='car-detail'
+    # )
+    
     total_price = serializers.SerializerMethodField(method_name='calculate_total_price')
     
     def calculate_total_price(self, car):
