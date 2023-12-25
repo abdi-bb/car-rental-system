@@ -9,7 +9,7 @@ class IsAdminOrReadOnly(permissions.BasePermission):
         # return super().has_permission(request, view)
         
 
-class CanViewReviewDetail(permissions.BasePermission):
+class CanModifyOwnReview(permissions.BasePermission):
     """
     Custom permission to allow viewing, but not updating or deleting,
     other customers' reviews.
