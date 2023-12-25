@@ -12,7 +12,7 @@ class Car(models.Model):
     
     name = models.CharField(max_length=255)
     model = models.CharField(max_length=255)
-    status = models.CharField(max_length=255)
+    availabile = models.BooleanField(default=True)
     seat = models.PositiveIntegerField()
     door = models.PositiveIntegerField()
     gearbox = models.CharField(max_length=1, choices=GEARBOX_CHOICES)
