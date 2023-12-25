@@ -13,37 +13,29 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Create dummy users
-        users = []
-        for _ in range(100):
-            user = User.objects.create_user(
-                username=fake.user_name(),
-                email=fake.email(),
-                password='password'
-            )
-            users.append(user)
+        users = [User.objects.create_user(
+            username=fake.user_name(),
+            email=fake.email(),
+            password='password'
+        ) for _ in range(100)]
 
         # Create dummy cars
-        cars = []
-        for _ in range(100):
-            car = Car.objects.create(
-                name=fake.word(),
-                model=fake.word(),
-                status=fake.word(),
-                seat=random.randint(2, 6),
-                door=random.randint(2, 4),
-                gearbox=random.choice(['M', 'A']),
-                price=random.uniform(50, 200)
-            )
-            cars.append(car)
+        car_names = ["Sedan", "Coupe", "SUV", "Truck", "Convertible", "Hatchback", "Van", "Sports Car"]
+        cars = [Car.objects.create(
+            name=random.choice(car_names),
+            model=fake.word(),
+            availabile=1,
+            seat=random.randint(2, 6),
+            door=random.randint(2, 4),
+            gearbox=random.choice(['M', 'A']),
+            price=random.uniform(50, 200)
+        ) for _ in range(100)]
 
         # Create dummy customers
-        customers = []
-        for user in users:
-            customer = Customer.objects.create(
-                phone_number=fake.phone_number(),
-                user=user
-            )
-            customers.append(customer)
+        customers = [Customer.objects.create(
+            phone_number=fake.phone_number(),
+            user=user
+        ) for user in users]
 
         # Create dummy bookings with conflict checking
         for _ in range(100):
@@ -57,20 +49,22 @@ class Command(BaseCommand):
                 car=car,
                 end_date__gte=start_date,
                 start_date__lte=end_date
-            ).exists():
+            ).exists() and car.availabile == 1:
                 Booking.objects.create(
                     start_date=start_date,
                     end_date=end_date,
                     customer=customer,
                     car=car
                 )
+                # Update car availabile to 0 (not available) since it's booked
+                car.availabile = 0
+                car.save()
 
         # Create dummy reviews
-        for car in cars:
-            Review.objects.create(
-                car=car,
-                name=fake.name(),
-                description=fake.text(),
-            )
+        reviews = [Review.objects.create(
+            car=car,
+            name=fake.name(),
+            description=fake.text(),
+        ) for car in cars]
 
         self.stdout.write(self.style.SUCCESS('Dummy data populated successfully.'))
