@@ -12,13 +12,18 @@ class CarSerializer(serializers.ModelSerializer):
     
 class CustomerSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField(read_only=True)
+    first_name = serializers.CharField(source='user.first_name', read_only=True)
+    last_name = serializers.CharField(source='user.last_name', read_only=True)
+    email = serializers.EmailField(source='user.email', read_only=True)
     
     class Meta:
         model = Customer
-        fields = ['id', 'user_id', 'phone_number']
+        fields = ['id', 'user_id', 'first_name', 'last_name', 'phone_number', 'email']
     
 
 class BookingSerializer(serializers.ModelSerializer):
+    customer = CustomerSerializer(read_only=True)
+    car = CarSerializer
     class Meta:
         model = Booking
         fields = ['id', 'start_date', 'end_date', 'customer', 'car', 'total_price']
@@ -26,24 +31,25 @@ class BookingSerializer(serializers.ModelSerializer):
     # car = serializers.PrimaryKeyRelatedField(queryset=Car.objects.all())
     # customer = CustomerSerializer()
     # car = CarSerializer()
-    customer = serializers.HyperlinkedRelatedField(
-        queryset=Customer.objects.all(),
-        view_name='customer-detail'
-    )
-    car = serializers.HyperlinkedRelatedField(
-        queryset=Car.objects.all(),
-        view_name='car-detail'
-    )
+    # customer = serializers.HyperlinkedRelatedField(
+    #     queryset=Customer.objects.all(),
+    #     view_name='customer-detail'
+    # )
+    # car = serializers.HyperlinkedRelatedField(
+    #     queryset=Car.objects.all(),
+    #     view_name='car-detail'
+    # )
+    
     total_price = serializers.SerializerMethodField(method_name='calculate_total_price')
     
     def calculate_total_price(self, car):
         pass
     
     
-class ReviewSerializer(serializers.Serializer):
+class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ['id', 'date', 'name', 'description']
+        fields = ['id', 'customer_id', 'name', 'date', 'description']
         
     def create(self, validated_data):
         car_id = self.context['car_id']
