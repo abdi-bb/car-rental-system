@@ -12,10 +12,13 @@ class CarSerializer(serializers.ModelSerializer):
     
 class CustomerSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField(read_only=True)
+    first_name = serializers.CharField(source='user.first_name', read_only=True)
+    last_name = serializers.CharField(source='user.last_name', read_only=True)
+    email = serializers.EmailField(source='user.email', read_only=True)
     
     class Meta:
         model = Customer
-        fields = ['id', 'user_id', 'phone_number']
+        fields = ['id', 'user_id', 'first_name', 'last_name', 'phone_number', 'email']
     
 
 class BookingSerializer(serializers.ModelSerializer):
