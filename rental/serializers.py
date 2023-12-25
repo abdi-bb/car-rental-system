@@ -40,7 +40,7 @@ class BookingSerializer(serializers.ModelSerializer):
         pass
     
     
-class ReviewSerializer(serializers.Serializer):
+class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ['id', 'date', 'name', 'description']
