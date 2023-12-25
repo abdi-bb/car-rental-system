@@ -76,7 +76,7 @@ class BookingViewSet(ModelViewSet):
 class ReviewViewSet(ModelViewSet):
     # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = [IsAuthenticated, CanViewReviewDetail]
+    permission_classes = [CanViewReviewDetail | IsAdminOrReadOnly]
     
     def perform_create(self, serializer):
         # Set the customer field to the current authenticated user's customer instance
