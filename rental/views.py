@@ -9,7 +9,7 @@ from rest_framework.mixins import CreateModelMixin, DestroyModelMixin, RetrieveM
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 
-from .permissions import CanViewReviewDetail, IsAdminOrReadOnly
+from .permissions import CanModifyOwnReview, IsAdminOrReadOnly
 from .filters import BookingFilter, CarFilter
 from .models import Booking, Car, Review, Customer
 from .serializers import BookingSerializer, CarSerializer, ReviewSerializer, CustomerSerializer
@@ -76,7 +76,7 @@ class BookingViewSet(ModelViewSet):
 class ReviewViewSet(ModelViewSet):
     # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = [CanViewReviewDetail | IsAdminOrReadOnly]
+    permission_classes = [CanModifyOwnReview | IsAdminOrReadOnly]
     
     def perform_create(self, serializer):
         # Set the customer field to the current authenticated user's customer instance
