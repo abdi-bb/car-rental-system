@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 myvenv/
 dummy_data.json
+access_token.json
