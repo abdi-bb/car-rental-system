@@ -2,4 +2,4 @@
 __pycache__/
 *.pyc
 myvenv/
-db.sqlite3
+dummy_data.json
