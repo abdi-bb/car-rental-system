@@ -18,16 +18,25 @@ class Car(models.Model):
     gearbox = models.CharField(max_length=1, choices=GEARBOX_CHOICES)
     image = models.ImageField(null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    
+    def __str__(self):
+        return f"{self.name} ({self.model})"
 
 class Customer(models.Model):
     phone_number = models.CharField(max_length=20)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.user.username}'s Customer Profile"
 
 class Booking(models.Model):
     start_date = models.DateField(default=timezone.now)
     end_date = models.DateField()
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
     car = models.OneToOneField(Car, on_delete=models.PROTECT)
+    
+    def __str__(self):
+        return f"Booking ID: {self.id} - {self.car.name} ({self.start_date} to {self.end_date})"
     
     def clean(self):
         # Check for overlapping bookings for the same car
@@ -48,3 +57,6 @@ class Review(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     date = models.DateField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"Review ID: {self.id} - {self.name} on {self.car.name}"
