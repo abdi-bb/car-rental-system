@@ -1,5 +1,7 @@
 from django.utils import timezone
 from rest_framework import serializers
+from djoser.serializers import UserSerializer as BaseUserSerializer, UserCreateSerializer as BaseUserCreateSerializer
+
 
 from rental.models import Booking, Car, Review, Customer
 
@@ -10,7 +12,20 @@ class CarSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'model', 'seat', 'door', 'gearbox', 'image', 'price']
     
     
+
+class UserCreateSerializer(BaseUserCreateSerializer):
+    class Meta(BaseUserCreateSerializer.Meta):
+        fields = ['id', 'username', 'password',
+                  'email', 'first_name', 'last_name']
+
+
+class UserSerializer(BaseUserSerializer):
+    class Meta(BaseUserSerializer.Meta):
+        fields = ['id', 'username', 'email', 'first_name', 'last_name']
+        
+    
 class CustomerSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
     user_id = serializers.IntegerField(read_only=True)
     first_name = serializers.CharField(source='user.first_name', read_only=True)
     last_name = serializers.CharField(source='user.last_name', read_only=True)
@@ -18,7 +33,7 @@ class CustomerSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Customer
-        fields = ['id', 'user_id', 'first_name', 'last_name', 'phone_number', 'email']
+        fields = ['id', 'user_id', 'user', 'first_name', 'last_name', 'phone_number', 'email']
     
 
 class BookingSerializer(serializers.ModelSerializer):

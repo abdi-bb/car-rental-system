@@ -23,8 +23,8 @@ class Car(models.Model):
         return f"{self.name} ({self.model})"
 
 class Customer(models.Model):
-    phone_number = models.CharField(max_length=20)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=20)
     
     def __str__(self):
         return f"{self.user.username}'s Customer Profile"

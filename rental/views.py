@@ -9,7 +9,7 @@ from rest_framework.mixins import CreateModelMixin, DestroyModelMixin, RetrieveM
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 
-from .permissions import CanModifyOwnReview, IsAdminOrReadOnly
+from .permissions import AdminCanModifyAnyView, CanModifyOwnReview, IsAdminOrReadOnly
 from .filters import BookingFilter, CarFilter
 from .models import Booking, Car, Review, Customer
 from .serializers import BookingSerializer, CarSerializer, ReviewSerializer, CustomerSerializer
@@ -33,7 +33,7 @@ class CarViewSet(ModelViewSet):
 class CustomerViewSet(ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [AdminCanModifyAnyView]
     
     @action(detail=False, methods=['GET', 'PUT'], permission_classes=[IsAuthenticated])
     def me(self, request):
