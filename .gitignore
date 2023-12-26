@@ -4,3 +4,4 @@ __pycache__/
 myvenv/
 dummy_data.json
 access_token.json
+.vscode/
