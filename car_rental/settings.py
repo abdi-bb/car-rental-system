@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'djoser',
     '_auth',
     'rental',
-    'custom',
     'debug_toolbar'
 ]
 
@@ -133,6 +132,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'uploads'
+
 # Additional locations of static files
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'static'),
@@ -162,8 +164,8 @@ REST_FRAMEWORK = {
 
 DJOSER = {
     'SERIALIZERS': {
-        'user_create': 'custom.serializers.UserCreateSerializer',
-        'current_user': 'custom.serializers.UserSerializer',
+        'user_create': 'rental.serializers.UserCreateSerializer',
+        'current_user': 'rental.serializers.UserSerializer',
     }
 }
 
