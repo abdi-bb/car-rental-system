@@ -14,6 +14,7 @@ router.register('bookings', views.BookingViewSet, basename='bookings')
 cars_router = routers.NestedDefaultRouter(router, 'cars', lookup='car')
 
 cars_router.register('reviews', views.ReviewViewSet, basename='car-reviews')
+cars_router.register('images', views.CarImageViewSet, basename='car-images')
 
 # urlpatterns = router.urls + cars_router.urls
 urlpatterns = [

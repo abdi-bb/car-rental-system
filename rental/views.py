@@ -11,12 +11,12 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 
 from .permissions import AdminCanModifyAnyView, CanModifyOwnReview, IsAdminOrReadOnly
 from .filters import BookingFilter, CarFilter
-from .models import Booking, Car, Review, Customer
-from .serializers import BookingSerializer, CarSerializer, ReviewSerializer, CustomerSerializer
+from .models import Booking, Car, CarImage, Review, Customer
+from .serializers import BookingSerializer, CarImageSerializer, CarSerializer, ReviewSerializer, CustomerSerializer
 
 
 class CarViewSet(ModelViewSet):
-    queryset = Car.objects.all()
+    queryset = Car.objects.prefetch_related('images').all()
     serializer_class = CarSerializer
     permission_classes = [IsAdminOrReadOnly]
     
@@ -88,3 +88,15 @@ class ReviewViewSet(ModelViewSet):
     
     def get_serializer_context(self):
         return {'car_id': self.kwargs['car_pk']}
+    
+
+class CarImageViewSet(ModelViewSet):
+    serializer_class = CarImageSerializer
+    
+    def get_serializer_context(self):
+        return {'car_id': self.kwargs['car_pk']}
+        # return super().get_serializer_context()
+    
+    def get_queryset(self):
+        return CarImage.objects.filter(car_id=self.kwargs['car_pk'])
+        # return super().get_queryset()
