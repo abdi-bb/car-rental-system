@@ -53,7 +53,7 @@ class BookingViewSet(ModelViewSet):
     
     def destroy(self, request, *args, **kwargs):
         if Customer.objects.filter(booking__id=kwargs['pk']).count() > 0:
-            return Response({'error': 'Booking can not be deleted because there is associated user with it.'})
+            return Response({'error': 'Booking can not be deleted because there is associated Customer with it.'})
 
         return super().destroy(request, *args, **kwargs)
 
