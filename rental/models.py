@@ -54,11 +54,11 @@ class Booking(models.Model):
         super().save(*args, **kwargs)
     
 class Review(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField()
-    date = models.DateField(auto_now_add=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     car = models.ForeignKey(Car, on_delete=models.CASCADE, related_name='reviews')
+    # name = models.CharField(max_length=255)
+    description = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"Review ID: {self.id} - {self.name} on {self.car.name}"
+        return f"Review ID: {self.id} - {self.customer.username} on {self.car.name}"
