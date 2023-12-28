@@ -23,13 +23,20 @@ class CanModifyOwnReview(permissions.BasePermission):
         return obj.customer == request.user.customer
     
     
-class AdminCanModifyAnyView(permissions.BasePermission):
+
+class AdminCanNotPost(permissions.BasePermission):
     """
-    Custom permission class to allow only admin users to modify any view.
+    Custom permission to allow only non-admin users to create reviews or bookings.
+    Admin users are allowed to update and delete.
     """
     def has_permission(self, request, view):
-        return (
-            request.user.is_authenticated and 
-            request.user.is_staff and 
-            request.method in ["GET", "PUT", "PATCH", "DELETE"]
-        )
+        # Allow GET requests (viewing) for any user
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+        # Allow POST requests (creation) only for non-admin users
+        return not request.user or not request.user.is_staff
+
+    def has_object_permission(self, request, view, obj):
+        # Allow updates and deletes for any user, including admin
+        return True

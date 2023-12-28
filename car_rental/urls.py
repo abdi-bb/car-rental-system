@@ -20,8 +20,9 @@ import debug_toolbar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('_auth.urls')),
+    # path('accounts/', include('_auth.urls')),
     path('api/rental/', include('rental.urls')),
+    path('api/accounts/', include('accounts.urls')),
     path('api/auth/', include('djoser.urls')),
     path('api/auth/', include('djoser.urls.jwt')),
     path("__debug__/", include(debug_toolbar.urls)),

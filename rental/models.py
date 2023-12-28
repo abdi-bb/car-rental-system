@@ -3,6 +3,8 @@ from django.forms import ValidationError
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+from accounts.models import Customer
+
 # Create your models here.
 
 class Car(models.Model):
@@ -27,13 +29,6 @@ class CarImage(models.Model):
     car = models.ForeignKey(Car, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='rental/cars/images', null=True, blank=True)
 
-
-class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone_number = models.CharField(max_length=20)
-    
-    def __str__(self):
-        return f"{self.user.username}'s Customer Profile"
 
 class Booking(models.Model):
     start_date = models.DateField(default=timezone.now)

@@ -46,11 +46,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_filters',
-    'rest_framework',
-    'djoser',
-    'corsheaders',
+    
+    "rest_framework",
+    "drf_yasg",
+    "djoser",
+    "corsheaders",
+    "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
+    
     '_auth',
     'rental',
+    'accounts',
     'debug_toolbar'
 ]
 
@@ -170,8 +176,8 @@ REST_FRAMEWORK = {
 
 DJOSER = {
     'SERIALIZERS': {
-        'user_create': 'rental.serializers.UserCreateSerializer',
-        'current_user': 'rental.serializers.UserSerializer',
+        'user_create': 'accounts.serializers.UserCreateSerializer',
+        'current_user': 'accounts.serializers.UserSerializer',
     }
 }
 

@@ -6,10 +6,9 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework.mixins import CreateModelMixin, DestroyModelMixin, RetrieveModelMixin, UpdateModelMixin
-from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 
-from .permissions import AdminCanModifyAnyView, CanModifyOwnReview, IsAdminOrReadOnly
+from .permissions import AdminCanNotPost, CanModifyOwnReview, IsAdminOrReadOnly
 from .filters import BookingFilter, CarFilter
 from .models import Booking, Car, CarImage, Review, Customer
 from .serializers import BookingSerializer, CarImageSerializer, CarSerializer, ReviewSerializer, CustomerSerializer
@@ -30,36 +29,22 @@ class CarViewSet(ModelViewSet):
         return super().destroy(request, *args, **kwargs)
     
 
-class CustomerViewSet(ModelViewSet):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
-    permission_classes = [AdminCanModifyAnyView]
-    
-    @action(detail=False, methods=['GET', 'PUT'], permission_classes=[IsAuthenticated])
-    def me(self, request):
-        (customer, created) = Customer.objects.get_or_create(user_id=request.user.id)
-        if request.method == 'GET':
-            serializer = CustomerSerializer(customer)
-            return Response(serializer.data)
-        elif request.method == 'PUT':
-            serializer = CustomerSerializer(customer, data=request.data)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
-            return Response(serializer.data)
-        
-
 class BookingViewSet(ModelViewSet):
     serializer_class = BookingSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AdminCanNotPost | IsAuthenticated]
     
     def get_queryset(self):
         user = self.request.user
-        if user.is_staff:
-            return Booking.objects.all()
+        if user.is_authenticated:
+            if user.is_staff:
+                return Booking.objects.all()
+            
+            (customer_id, created) = Customer.objects.only('id').get_or_create(user_id=user.id)
+            return Booking.objects.filter(customer_id=customer_id)
+        else:
+            return Booking.objects.none()
         
-        (customer_id, created) = Customer.objects.only('id').get_or_create(user_id=user.id)
-        return Booking.objects.filter(customer_id=customer_id)
-        # return super().get_queryset()
+            # return super().get_queryset()
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     # filterset_fields = ['user_id']
     filterset_class = BookingFilter
@@ -76,7 +61,7 @@ class BookingViewSet(ModelViewSet):
 class ReviewViewSet(ModelViewSet):
     # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = [CanModifyOwnReview | IsAdminOrReadOnly]
+    permission_classes = [AdminCanNotPost | CanModifyOwnReview | IsAdminOrReadOnly]
     
     def perform_create(self, serializer):
         # Set the customer field to the current authenticated user's customer instance
@@ -92,6 +77,7 @@ class ReviewViewSet(ModelViewSet):
 
 class CarImageViewSet(ModelViewSet):
     serializer_class = CarImageSerializer
+    permission_classes = [IsAdminOrReadOnly]
     
     def get_serializer_context(self):
         return {'car_id': self.kwargs['car_pk']}
