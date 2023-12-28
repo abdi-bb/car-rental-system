@@ -4,12 +4,12 @@ from rest_framework import serializers
 from accounts.models import Customer
 
 
-class UserCreateSerializer(BaseUserCreateSerializer):
+class CustomUserCreateSerializer(BaseUserCreateSerializer):
     class Meta(BaseUserCreateSerializer.Meta):
         fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name']
         
         
-class UserSerializer(BaseUserSerializer):
+class CustomUserSerializer(BaseUserSerializer):
     class Meta(BaseUserSerializer.Meta):
         fields = ['id', 'username', 'email', 'first_name', 'last_name']
         
