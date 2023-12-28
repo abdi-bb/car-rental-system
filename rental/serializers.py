@@ -52,9 +52,10 @@ class BookingSerializer(serializers.ModelSerializer):
     
     
 class ReviewSerializer(serializers.ModelSerializer):
+    username = serializers.StringRelatedField(source='customer.user.username', read_only=True)
     class Meta:
         model = Review
-        fields = ['id', 'customer_id', 'name', 'date', 'description']
+        fields = ['id', 'customer_id', 'username', 'date', 'description']
         
     def create(self, validated_data):
         car_id = self.context['car_id']
