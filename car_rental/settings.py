@@ -55,8 +55,13 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     
     '_auth',
-    'rental',
-    'accounts',
+    
+    'car',
+    'customer',
+    'booking',
+    'payment',
+    'review',
+    
     'debug_toolbar'
 ]
 
@@ -176,9 +181,9 @@ REST_FRAMEWORK = {
 
 DJOSER = {
     'SERIALIZERS': {
-        'user_create': 'accounts.serializers.CustomUserCreateSerializer',
-        'user': 'accounts.serializers.CustomUserSerializer',
-        'current_user': 'accounts.serializers.CustomUserSerializer',
+        'user_create': 'customer.api.v1.serializers.CustomUserCreateSerializer',
+        'user': 'customer.api.v1.serializers.CustomUserSerializer',
+        'current_user': 'customer.api.v1.serializers.CustomUserSerializer',
     }
 }
 

@@ -21,10 +21,14 @@ import debug_toolbar
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('accounts/', include('_auth.urls')),
-    path('api/rental/', include('rental.urls')),
-    path('api/accounts/', include('accounts.urls')),
-    path('api/auth/', include('djoser.urls')),
-    path('api/auth/', include('djoser.urls.jwt')),
+    path('api/v1/', include('booking.api.v1.urls')),
+    path('api/v1/', include('car.api.v1.urls')),
+    path('api/v1/', include('customer.api.v1.urls')),
+    # path('api/v1/', include('payment.api.v1.urls')),
+    
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
+    
     path("__debug__/", include(debug_toolbar.urls)),
     
 ]
