@@ -5,4 +5,3 @@ venv/
 dummy_data.json
 access_token.json
 .vscode/
-frontend/
