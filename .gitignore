@@ -4,4 +4,5 @@ __pycache__/
 venv/
 dummy_data.json
 access_token.json
-.vscode
+.vscode/
+frontend/
