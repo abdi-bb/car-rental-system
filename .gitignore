@@ -1,6 +1,7 @@
 .env
 __pycache__/
 *.pyc
-myvenv/
+venv/
 dummy_data.json
 access_token.json
+.vscode/
