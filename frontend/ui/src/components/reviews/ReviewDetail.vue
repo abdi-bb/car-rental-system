@@ -25,28 +25,28 @@
     },
     methods: {
       // For testing purposes, use hardcoded data
-      fetchReviewData() {
-        this.review = {
-          id: 1,
-          customer: { user: { username: 'JohnDoe' } },
-          car: { name: 'BMW' },
-          rating: 5,
-          description: 'Great car!',
-          // Add more data as needed
-        };
-      },
+      // fetchReviewData() {
+      //   this.review = {
+      //     id: 1,
+      //     customer: { user: { username: 'JohnDoe' } },
+      //     car: { name: 'BMW' },
+      //     rating: 5,
+      //     description: 'Great car!',
+      //     // Add more data as needed
+      //   };
+      // },
   
       // Uncomment the following lines when using API
-      // fetchReviewData() {
-      //   axios.get(`/api/cars/${this.$route.params.carId}/reviews/${this.$route.params.id}`)
-      //     .then(response => {
-      //       this.review = response.data;
-      //     })
-      //     .catch(error => {
-      //       console.error('Error fetching review data:', error);
-      //       this.review = null;
-      //     });
-      // },
+      fetchReviewData() {
+        axios.get(`http://127.0.0.1:8000/api/v1/cars/${this.$route.params.carId}/reviews/${this.$route.params.id}`)
+          .then(response => {
+            this.review = response.data;
+          })
+          .catch(error => {
+            console.error('Error fetching review data:', error);
+            this.review = null;
+          });
+      },
     },
     created() {
       this.fetchReviewData();

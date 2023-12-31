@@ -4,7 +4,7 @@
       <ul>
         <li v-for="review in reviews" :key="review.id">
           <router-link :to="{ name: 'ReviewDetail', params: { id: review.id }}">
-            {{ review.customer.user.username }} - {{ review.car.name }} - Rating: {{ review.rating }}
+            {{ review.customer.username }} - {{ review.car.name }} - Rating: {{ review.rating }}
           </router-link>
         </li>
       </ul>
@@ -22,24 +22,24 @@
     },
     methods: {
       // For testing purposes, use hardcoded data
-      fetchReviews() {
-        this.reviews = [
-          { id: 1, customer: { user: { username: 'JohnDoe' } }, car: { name: 'BMW' }, rating: 5 },
-          { id: 2, customer: { user: { username: 'JaneSmith' } }, car: { name: 'Nissan' }, rating: 4 },
-          // Add more data as needed
-        ];
-      },
+      // fetchReviews() {
+      //   this.reviews = [
+      //     { id: 1, customer: { user: { username: 'JohnDoe' } }, car: { name: 'BMW' }, rating: 5 },
+      //     { id: 2, customer: { user: { username: 'JaneSmith' } }, car: { name: 'Nissan' }, rating: 4 },
+      //     // Add more data as needed
+      //   ];
+      // },
   
       // Uncomment the following lines when using API
-      // fetchReviews() {
-      //   axios.get(`/api/cars/${this.$route.params.carId}/reviews`)
-      //     .then(response => {
-      //       this.reviews = response.data;
-      //     })
-      //     .catch(error => {
-      //       console.error('Error fetching reviews:', error);
-      //     });
-      // },
+      fetchReviews() {
+        axios.get(`http://127.0.0.1:8000/api/v1/cars/${this.$route.params.carId}/reviews`)
+          .then(response => {
+            this.reviews = response.data;
+          })
+          .catch(error => {
+            console.error('Error fetching reviews:', error);
+          });
+      },
     },
     created() {
       this.fetchReviews();

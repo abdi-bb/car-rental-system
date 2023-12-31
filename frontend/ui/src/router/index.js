@@ -5,7 +5,7 @@ import NotFound from '../views/NotFound.vue'
 
 import CarsList from '../components/cars/CarsList.vue';
 import CarDetail from '../components/cars/CarDetail.vue';
-import CarReviews from '../components/cars/CarReviews.vue';
+import CarReviewsList from '../components/cars/CarReviewsList.vue';
 import CarReviewDetail from '../components/cars/CarReviewDetail.vue';
 import CustomersList from '../components/customers/CustomersList.vue';
 import CustomerDetail from '../components/customers/CustomerDetail.vue';
@@ -41,8 +41,8 @@ const routes = [
   },
   {
     path: '/car/:carId/reviews',
-    name: 'CarReviews', // This is the new route for reviews
-    component: CarReviews,
+    name: 'CarReviewsList', // This is the new route for reviews
+    component: CarReviewsList,
   },
   {
     path: '/car/:carId/review/:reviewId',

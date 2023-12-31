@@ -40,28 +40,28 @@ export default {
   },
   methods: {
     // Commented out API request for testing purposes
-    // async fetchCarDetails(id) {
-    //   try {
-    //     const response = await fetch(`your-backend-api-url/cars/${id}`);
-    //     if (!response.ok) {
-    //       throw new Error('Car not found');
-    //     }
-    //     this.car = await response.json();
-    //   } catch (error) {
-    //     console.error(error.message);
-    //     this.car = null; // Set car to null if an error occurs
-    //   }
-    // },
+    async fetchCarDetails(id) {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/api/v1/cars/${id}`);
+        if (!response.ok) {
+          throw new Error('Car not found');
+        }
+        this.car = await response.json();
+      } catch (error) {
+        console.error(error.message);
+        this.car = null; // Set car to null if an error occurs
+      }
+    },
     
     // For testing purposes, use hardcoded data
-    fetchCarDetails(id) {
-      const hardcodedData = [
-        { name: 'BMW', model: '2024', id: 1, desc: 'description', available: true, seat: 5, door: 4, gearbox: 'Automatic', price: 100 },
-        // Add more data as needed
-      ];
-      const car = hardcodedData.find(car => car.id === Number(id));
-      this.car = car || null;
-    },
+    // fetchCarDetails(id) {
+    //   const hardcodedData = [
+    //     { name: 'BMW', model: '2024', id: 1, desc: 'description', available: true, seat: 5, door: 4, gearbox: 'Automatic', price: 100 },
+    //     // Add more data as needed
+    //   ];
+    //   const car = hardcodedData.find(car => car.id === Number(id));
+    //   this.car = car || null;
+    // },
   },
 };
 </script>

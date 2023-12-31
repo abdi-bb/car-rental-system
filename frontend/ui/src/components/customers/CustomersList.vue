@@ -4,7 +4,7 @@
       <ul>
         <li v-for="customer in customers" :key="customer.id">
           <router-link :to="{ name: 'CustomerDetail', params: { id: customer.id }}">
-            {{ customer.user.username }} - {{ customer.phone_number }}
+            {{ customer.username }} - {{ customer.phone_number || 'Phone Number N/A'}}
           </router-link>
         </li>
       </ul>
@@ -23,24 +23,24 @@
     },
     methods: {
       // For testing purposes, use hardcoded data
-      fetchData() {
-        this.customers = [
-          { id: 1, user: { username: 'JohnDoe' }, phone_number: '123-456-7890' },
-          { id: 2, user: { username: 'JaneSmith' }, phone_number: '987-654-3210' },
-          // Add more data as needed
-        ];
-      },
+      // fetchData() {
+      //   this.customers = [
+      //     { id: 1, user: { username: 'JohnDoe' }, phone_number: '123-456-7890' },
+      //     { id: 2, user: { username: 'JaneSmith' }, phone_number: '987-654-3210' },
+      //     // Add more data as needed
+      //   ];
+      // },
   
       // Uncomment the following lines when using API
-      // fetchData() {
-      //   axios.get('/api/customers')
-      //     .then(response => {
-      //       this.customers = response.data;
-      //     })
-      //     .catch(error => {
-      //       console.error('Error fetching data:', error);
-      //     });
-      // },
+      fetchData() {
+        axios.get('http://127.0.0.1:8000/api/v1/customers')
+          .then(response => {
+            this.customers = response.data;
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+      },
     },
     created() {
       this.fetchData();
