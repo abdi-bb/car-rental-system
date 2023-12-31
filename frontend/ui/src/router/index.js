@@ -2,9 +2,15 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import NotFound from '../views/NotFound.vue'
-import Cars from '../views/cars/Cars.vue'
-import CarDetail from '../views/cars/CarDetail.vue'
 
+import CarsList from '../components/cars/CarsList.vue';
+import CarDetail from '../components/cars/CarDetail.vue';
+import CarReviews from '../components/cars/CarReviews.vue';
+import CarReviewDetail from '../components/cars/CarReviewDetail.vue';
+import CustomersList from '../components/customers/CustomersList.vue';
+import CustomerDetail from '../components/customers/CustomerDetail.vue';
+import BookingsList from '../components/bookings/BookingsList.vue';
+import BookingDetail from '../components/bookings/BookingDetail.vue';
 
 
 
@@ -24,14 +30,44 @@ const routes = [
   },
   {
     path: '/cars',
-    name: 'Cars',
-    component: Cars
+    name: 'CarsList',
+    component: CarsList
   },
   {
     path: '/car/:id',
     name: 'CarDetail',
     component: CarDetail,
     props: true
+  },
+  {
+    path: '/car/:carId/reviews',
+    name: 'CarReviews', // This is the new route for reviews
+    component: CarReviews,
+  },
+  {
+    path: '/car/:carId/review/:reviewId',
+    name: 'CarReviewDetail',
+    component: CarReviewDetail,
+  },
+  {
+    path: '/customers',
+    name: 'CustomersList',
+    component: CustomersList
+  },
+  {
+    path: '/customer/:id',
+    name: 'CustomerDetail',
+    component: CustomerDetail,
+  },
+  {
+    path: '/bookings',
+    name: 'BookingsList',
+    component: BookingsList
+  },
+  {
+    path: '/booking/:id',
+    name: 'BookingDetail',
+    component: BookingDetail,
   },
     // redirect
   {

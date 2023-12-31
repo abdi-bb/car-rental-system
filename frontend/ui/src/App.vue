@@ -2,7 +2,7 @@
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
-    <router-link :to="{ name: 'Cars' }">Cars</router-link>
+    <router-link :to="{ name: 'CarsList' }">Cars</router-link>
   </nav>
   <router-view/>
 </template>
