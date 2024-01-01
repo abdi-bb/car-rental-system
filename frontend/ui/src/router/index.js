@@ -3,6 +3,9 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import NotFound from '../views/NotFound.vue'
 
+import UserRegistrationForm from '../components/auth/UserRegistrationForm.vue';
+import LoginForm from '../components/auth/LoginForm.vue';
+
 import CarsList from '../components/cars/CarsList.vue';
 import CarDetail from '../components/cars/CarDetail.vue';
 import CarReviewsList from '../components/cars/CarReviewsList.vue';
@@ -15,6 +18,16 @@ import BookingDetail from '../components/bookings/BookingDetail.vue';
 
 
 const routes = [
+  {
+    path: '/register',
+    name: 'UserRegistrationForm',
+    component: UserRegistrationForm,
+  },
+  {
+    path: '/login',
+    name: 'LoginForm',
+    component: LoginForm,
+  },
   {
     path: '/',
     name: 'home',

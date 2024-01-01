@@ -26,8 +26,8 @@ urlpatterns = [
     path('api/v1/', include('customer.api.v1.urls')),
     # path('api/v1/', include('payment.api.v1.urls')),
     
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.jwt')),
+    path('api/v1/auth/', include('djoser.urls')),
+    path('api/v1/auth/', include('djoser.urls.jwt')),
     
     path("__debug__/", include(debug_toolbar.urls)),
     

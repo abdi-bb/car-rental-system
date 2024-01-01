@@ -33,7 +33,15 @@
   
       // Uncomment the following lines when using API
       fetchData() {
-        axios.get('http://127.0.0.1:8000/api/v1/customers')
+        // Retrieve the access token from localStorage
+        const accessToken = localStorage.getItem('accessToken');
+
+        // Set the Authorization header
+        const headers = {
+          'Authorization': `JWT ${accessToken}`,
+        };
+
+        axios.get('http://127.0.0.1:8000/api/v1/customers', { headers })
           .then(response => {
             this.customers = response.data;
           })
