@@ -31,9 +31,9 @@ class CarImageViewSet(ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]
     
     def get_serializer_context(self):
-        return {'car_id': self.kwargs['car_pk']}
+        return {'car_id': self.kwargs.get('car_pk')}
         # return super().get_serializer_context()
     
     def get_queryset(self):
-        return CarImage.objects.filter(car_id=self.kwargs['car_pk'])
+        return CarImage.objects.filter(car_id=self.kwargs.get('car_pk'))
         # return super().get_queryset()
