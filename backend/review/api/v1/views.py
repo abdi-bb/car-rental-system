@@ -22,14 +22,14 @@ class ReviewViewSet(ModelViewSet):
         car_pk = self.kwargs.get("car_pk")
         car = get_object_or_404(Car, pk=car_pk)
         
-        customer = self.request.user
+        user = self.request.user
         review_queryset = Review.objects.filter(car=car,
-                                                customer=customer.id)
+                                                user=user.id)
         
         if review_queryset.exists():
-            raise serializers.ValidationError("You have reviewed this car!")
-        # Set the customer field to the current authenticated user's customer instance
-        serializer.save(customer=self.request.user.customer)
+            raise serializers.ValidationError("You have already reviewed this car!")
+        # Set the user field to the current authenticated user's user instance
+        serializer.save(user=self.request.user)
         
     def get_queryset(self):
         return Review.objects.filter(car_id=self.kwargs.get('car_pk'))

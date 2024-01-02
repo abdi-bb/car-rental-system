@@ -1,7 +1,7 @@
 import random
 from django.core.management.base import BaseCommand
 from faker import Faker
-from django.contrib.auth.models import User
+from user.models import User
 from car.models import Car
 
 fake = Faker()
@@ -19,16 +19,19 @@ class Command(BaseCommand):
             username = fake.user_name()
             email = fake.email()
             password = fake.password()
+            phone_number = fake.phone_number()
 
             # Ensure unique usernames
             while User.objects.filter(username=username).exists():
                 username = fake.user_name()
 
-            User.objects.create_user(username=username, email=email, password=password)
+            User.objects.create_user(username=username, email=email, password=password, phone_number=phone_number)
 
     def populate_cars(self, count):
+        car_names = ["Toyota", "Honda", "Ford", "Chevrolet", "Nissan", "BMW", "Mercedes", "Audi", "Volkswagen", "Tesla"]
+
         for _ in range(count):
-            name = fake.word()
+            name = random.choice(car_names)
             model = fake.word()
             available = random.choice([True, False])
             seat = random.randint(2, 8)

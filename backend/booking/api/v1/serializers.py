@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from car.api.v1.serializers import CarSerializer
-from customer.api.v1.serializers import CustomerSerializer
+from user.api.v1.serializers import UserSerializer
 
 
 from booking.models import Booking
@@ -9,19 +9,19 @@ from booking.models import Booking
 
 
 class BookingSerializer(serializers.ModelSerializer):
-    # customer = CustomerSerializer(read_only=True)
-    customer_id = serializers.PrimaryKeyRelatedField(source='customer.id', read_only=True)
+    # user = UserSerializer(read_only=True)
+    user_id = serializers.PrimaryKeyRelatedField(source='user.id', read_only=True)
     car = CarSerializer
     class Meta:
         model = Booking
-        fields = ['id',  'car', 'customer_id', 'start_date', 'end_date', 'total_price']
-    # customer = serializers.PrimaryKeyRelatedField(queryset=Customer.objects.all())
+        fields = ['id',  'car', 'user_id', 'start_date', 'end_date', 'total_price']
+    # user = serializers.PrimaryKeyRelatedField(queryset=Customer.objects.all())
     # car = serializers.PrimaryKeyRelatedField(queryset=Car.objects.all())
-    # customer = CustomerSerializer()
+    # user = UserSerializer()
     # car = CarSerializer()
-    # customer = serializers.HyperlinkedRelatedField(
+    # user = serializers.HyperlinkedRelatedField(
     #     queryset=Customer.objects.all(),
-    #     view_name='customer-detail'
+    #     view_name='user-detail'
     # )
     # car = serializers.HyperlinkedRelatedField(
     #     queryset=Car.objects.all(),

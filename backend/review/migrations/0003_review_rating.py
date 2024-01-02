@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('review', '0002_rename_date_review_created_at_review_updated_at'),
+        ('review', '0002_initial'),
     ]
 
     operations = [

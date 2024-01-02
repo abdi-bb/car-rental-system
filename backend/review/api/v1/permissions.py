@@ -20,7 +20,7 @@ class CanModifyOwnReview(permissions.BasePermission):
             return True
 
         # Prevent updates or deletions for other customers' reviews
-        return obj.customer == request.user.customer
+        return obj.user == request.user
     
     
 

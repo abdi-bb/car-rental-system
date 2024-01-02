@@ -5,6 +5,6 @@ class BookingFilter(FilterSet):
     class Meta:
         model = Booking
         fields = {
-            'customer_id': ['exact'],
+            'user_id': ['exact'],
             'end_date': ['gt', 'lt']
         }

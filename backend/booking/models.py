@@ -2,7 +2,7 @@ from django.db import models
 from django.forms import ValidationError
 from django.utils import timezone
 
-from customer.models import Customer
+from user.models import User
 from car.models import Car
 
 # Create your models here.
@@ -11,7 +11,7 @@ from car.models import Car
 class Booking(models.Model):
     start_date = models.DateField(default=timezone.now)
     end_date = models.DateField()
-    customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
     car = models.OneToOneField(Car, on_delete=models.PROTECT)
     
     def __str__(self):

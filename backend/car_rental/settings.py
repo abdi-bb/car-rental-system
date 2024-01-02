@@ -56,8 +56,8 @@ INSTALLED_APPS = [
     
     '_auth',
     
+    'user',
     'car',
-    'customer',
     'booking',
     'payment',
     'review',
@@ -159,6 +159,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+AUTH_USER_MODEL = 'user.User'
+
 
 INTERNAL_IPS = [
     # ...
@@ -185,9 +187,9 @@ REST_FRAMEWORK = {
 
 DJOSER = {
     'SERIALIZERS': {
-        'user_create': 'customer.api.v1.serializers.CustomUserCreateSerializer',
-        'user': 'customer.api.v1.serializers.CustomUserSerializer',
-        'current_user': 'customer.api.v1.serializers.CustomUserSerializer',
+        'user_create': 'user.api.v1.serializers.CustomUserCreateSerializer',
+        'user': 'user.api.v1.serializers.CustomUserSerializer',
+        'current_user': 'user.api.v1.serializers.CustomUserSerializer',
     }
 }
 

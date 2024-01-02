@@ -15,12 +15,12 @@ class CanModifyOwnReview(permissions.BasePermission):
     other customers' reviews.
     """
     def has_object_permission(self, request, view, obj):
-        # Allow GET requests (viewing) for any customer's review
+        # Allow GET requests (viewing) for any user's review
         if request.method in permissions.SAFE_METHODS:
             return True
 
         # Prevent updates or deletions for other customers' reviews
-        return obj.customer == request.user.customer
+        return obj.user == request.user
     
     
 

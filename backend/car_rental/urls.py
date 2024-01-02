@@ -37,7 +37,7 @@ urlpatterns = [
     # path('accounts/', include('_auth.urls')),
     path('api/v1/', include('booking.api.v1.urls')),
     path('api/v1/', include('car.api.v1.urls')),
-    path('api/v1/', include('customer.api.v1.urls')),
+    # path('api/v1/', include('customer.api.v1.urls')),
     # path('api/v1/', include('payment.api.v1.urls')),
     
     path('api/v1/auth/', include('djoser.urls')),
