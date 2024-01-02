@@ -6,6 +6,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
 
 from user.models import User
 
@@ -46,7 +47,8 @@ class BookingViewSet(ModelViewSet):
             serializer.save()
     
     def destroy(self, request, *args, **kwargs):
-        if User.objects.filter(booking__id=kwargs['pk']).count() > 0:
-            return Response({'error': 'Booking can not be deleted because there is associated User with it.'})
+        booking_instance = self.get_object()
+        if User.objects.filter(booking__id=kwargs['pk']).count() > 0 and not (request.user == booking_instance.user):
+            return Response({'error': 'Booking cannot be deleted because there is an associated User with it.'}, status=status.HTTP_403_FORBIDDEN)
 
         return super().destroy(request, *args, **kwargs)
