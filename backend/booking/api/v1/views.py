@@ -40,7 +40,7 @@ class BookingViewSet(ModelViewSet):
     def perform_create(self, serializer):
         user = self.request.user
         if user.is_authenticated and not user.is_staff:
-            user, created = User.objects.get_or_create(user=user)
+            user, created = User.objects.get_or_create(id=user.id)
             serializer.save(user=user)
         else:
             serializer.save()
