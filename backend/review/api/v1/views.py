@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from django.core.validators import ValidationError
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import serializers
 
 from car.models import Car
 
@@ -26,7 +27,7 @@ class ReviewViewSet(ModelViewSet):
                                                 customer=customer.id)
         
         if review_queryset.exists():
-            raise ValidationError("You have reviewed this car!")
+            raise serializers.ValidationError("You have reviewed this car!")
         # Set the customer field to the current authenticated user's customer instance
         serializer.save(customer=self.request.user.customer)
         
