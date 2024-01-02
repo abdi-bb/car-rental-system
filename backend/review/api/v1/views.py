@@ -15,7 +15,7 @@ from .serializers import ReviewSerializer
 class ReviewViewSet(ModelViewSet):
     # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = [IsAuthenticated, AdminCanNotPost, CanModifyOwnReview, IsAdminOrReadOnly]
+    permission_classes = [IsAuthenticated, AdminCanNotPost, CanModifyOwnReview]
     
     def perform_create(self, serializer):
         car_pk = self.kwargs.get("car_pk")
@@ -23,7 +23,7 @@ class ReviewViewSet(ModelViewSet):
         
         customer = self.request.user
         review_queryset = Review.objects.filter(car=car,
-                                                customer=customer)
+                                                customer=customer.id)
         
         if review_queryset.exists():
             raise ValidationError("You have reviewed this car!")
