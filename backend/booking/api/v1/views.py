@@ -6,7 +6,6 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import serializers
 
 from customer.models import Customer
 
@@ -48,6 +47,6 @@ class BookingViewSet(ModelViewSet):
     
     def destroy(self, request, *args, **kwargs):
         if Customer.objects.filter(booking__id=kwargs['pk']).count() > 0:
-            return serializers.ValidationError({'Booking can not be deleted because there is associated Customer with it.'})
+            return Response({'error': 'Booking can not be deleted because there is associated Customer with it.'})
 
         return super().destroy(request, *args, **kwargs)
