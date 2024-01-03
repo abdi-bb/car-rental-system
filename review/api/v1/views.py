@@ -16,7 +16,7 @@ from .serializers import ReviewSerializer
 class ReviewViewSet(ModelViewSet):
     # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = [IsAuthenticated, AdminCanNotPost, CanModifyOwnReview]
+    permission_classes = [IsAuthenticated, CanModifyOwnReview]
     
     def perform_create(self, serializer):
         car_pk = self.kwargs.get("car_pk")
