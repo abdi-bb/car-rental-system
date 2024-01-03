@@ -14,7 +14,6 @@ from datetime import timedelta
 from pathlib import Path
 
 
-# 📁 webappexample/settings.py -----
 
 import os
 from dotenv import load_dotenv, find_dotenv
@@ -195,10 +194,10 @@ DJOSER = {
 
 SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('JWT',),
-   'ACCESS_TOKEN_LIFETIME': timedelta(days=30)
+   'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+#    'REFRESH_TOKEN_LIFETIME': timedelta(days=2),
 }
  
-# 📁 webappexample/settings.py -----
 
 # Load environment definition file
 ENV_FILE = find_dotenv()

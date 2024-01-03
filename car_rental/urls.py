@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
+from rest_framework_simplejwt.views import TokenBlacklistView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 import debug_toolbar
@@ -42,6 +43,7 @@ urlpatterns = [
     
     path('api/v1/auth/', include('djoser.urls')),
     path('api/v1/auth/', include('djoser.urls.jwt')),
+    path('api/v1/auth/jwt/logout/', TokenBlacklistView.as_view(), name='token_blacklist'),
     
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
