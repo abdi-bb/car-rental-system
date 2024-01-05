@@ -34,3 +34,9 @@ def calculate_total_price(daily_price, start_date, end_date):
     except Exception as e:
         print(f"Error calculating total price: {e}")
         return 0
+
+def calculate_average_rating(reviews):
+    if not reviews:
+        return 0
+    total_rating = sum(review.rating for review in reviews)
+    return total_rating / len(reviews)
