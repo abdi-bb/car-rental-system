@@ -9,11 +9,12 @@ from booking.models import Booking
 
 
 class BookingSerializer(serializers.ModelSerializer):
-    customer = CustomerSerializer(read_only=True)
+    # customer = CustomerSerializer(read_only=True)
+    customer_id = serializers.PrimaryKeyRelatedField(source='customer.id', read_only=True)
     car = CarSerializer
     class Meta:
         model = Booking
-        fields = ['id', 'start_date', 'end_date', 'customer', 'car', 'total_price']
+        fields = ['id',  'car', 'customer_id', 'start_date', 'end_date', 'total_price']
     # customer = serializers.PrimaryKeyRelatedField(queryset=Customer.objects.all())
     # car = serializers.PrimaryKeyRelatedField(queryset=Car.objects.all())
     # customer = CustomerSerializer()

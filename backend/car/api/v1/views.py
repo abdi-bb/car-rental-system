@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render
 # Create your views here.
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import serializers
 
 from booking.models import Booking
 
@@ -21,8 +22,7 @@ class CarViewSet(ModelViewSet):
     
     def destroy(self, request, *args, **kwargs):
         if Booking.objects.filter(car_id=kwargs['pk']).count() > 0:
-            return Response({'error': "Car can not be deleted because there is a booking tied to it."})
-        
+            raise serializers.ValidationError("Car can not be deleted because there is a booking tied to it.")
         return super().destroy(request, *args, **kwargs)
 
 
@@ -31,9 +31,9 @@ class CarImageViewSet(ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]
     
     def get_serializer_context(self):
-        return {'car_id': self.kwargs['car_pk']}
+        return {'car_id': self.kwargs.get('car_pk')}
         # return super().get_serializer_context()
     
     def get_queryset(self):
-        return CarImage.objects.filter(car_id=self.kwargs['car_pk'])
+        return CarImage.objects.filter(car_id=self.kwargs.get('car_pk'))
         # return super().get_queryset()

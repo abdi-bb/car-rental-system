@@ -3,9 +3,12 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import NotFound from '../views/NotFound.vue'
 
+import UserRegistrationForm from '../components/auth/UserRegistrationForm.vue';
+import LoginForm from '../components/auth/LoginForm.vue';
+
 import CarsList from '../components/cars/CarsList.vue';
 import CarDetail from '../components/cars/CarDetail.vue';
-import CarReviews from '../components/cars/CarReviews.vue';
+import CarReviewsList from '../components/cars/CarReviewsList.vue';
 import CarReviewDetail from '../components/cars/CarReviewDetail.vue';
 import CustomersList from '../components/customers/CustomersList.vue';
 import CustomerDetail from '../components/customers/CustomerDetail.vue';
@@ -15,6 +18,16 @@ import BookingDetail from '../components/bookings/BookingDetail.vue';
 
 
 const routes = [
+  {
+    path: '/register',
+    name: 'UserRegistrationForm',
+    component: UserRegistrationForm,
+  },
+  {
+    path: '/login',
+    name: 'LoginForm',
+    component: LoginForm,
+  },
   {
     path: '/',
     name: 'home',
@@ -41,8 +54,8 @@ const routes = [
   },
   {
     path: '/car/:carId/reviews',
-    name: 'CarReviews', // This is the new route for reviews
-    component: CarReviews,
+    name: 'CarReviewsList', // This is the new route for reviews
+    component: CarReviewsList,
   },
   {
     path: '/car/:carId/review/:reviewId',

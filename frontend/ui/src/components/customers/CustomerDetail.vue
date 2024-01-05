@@ -13,6 +13,8 @@
   </template>
   
   <script>
+  import axios from 'axios';
+
   export default {
     data() {
       return {
@@ -21,8 +23,16 @@
     },
     methods: {
       fetchCustomerData() {
+
+        // Retrieve the access token from localStorage
+        const accessToken = localStorage.getItem('accessToken');
+
+        // Set the Authorization header
+        const headers = {
+          'Authorization': `JWT ${accessToken}`,
+        };
         // Fetch customer details from your API based on the route parameter 'id'
-        // axios.get(`/api/customers/${this.$route.params.id}`).then(response => this.customer = response.data);
+        axios.get(`http://127.0.0.1:8000/api/v1/customers/${this.$route.params.id}`, { headers }).then(response => this.customer = response.data);
       },
     },
     created() {
