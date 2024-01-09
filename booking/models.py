@@ -14,20 +14,11 @@ class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     car = models.OneToOneField(Car, on_delete=models.PROTECT)
     
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.car.availabile = 0
+        self.car.save()
+    
     def __str__(self):
         return f"Booking ID: {self.id} - {self.car.name} ({self.start_date} to {self.end_date})"
-    
-    def clean(self):
-        # Check for overlapping bookings for the same car
-        overlapping_bookings = Booking.objects.filter(
-            car=self.car,
-            end_date__gte=self.start_date,
-            start_date__lte=self.end_date
-        ).exclude(pk=self.pk)  # Exclude the current booking if it's an update
-        if overlapping_bookings.exists():
-            raise ValidationError("This car is already booked for the specified time period.")
-
-    def save(self, *args, **kwargs):
-        self.clean()  # Perform the validation before saving
-        super().save(*args, **kwargs)
  
