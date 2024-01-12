@@ -19,12 +19,12 @@ class CarImageSerializer(serializers.ModelSerializer):
 class CarSerializer(serializers.ModelSerializer):
     images = CarImageSerializer(many=True, read_only=True)
     reviews = ReviewSerializer(many=True, read_only=True)
-    average_rating = serializers.SerializerMethodField()
+    stars = serializers.SerializerMethodField()
     class Meta:
         model = Car
-        fields = ['id', 'name', 'model', 'seat', 'door', 'gearbox', 'price', 'images', 'reviews', 'average_rating']
+        fields = ['id', 'name', 'model', 'seat', 'door', 'gearbox', 'price', 'images', 'reviews', 'stars']
         
-    def get_average_rating(self, obj):
+    def get_stars(self, obj):
         reviews = list(obj.reviews.all())
         return calculate_average_rating(reviews)
 

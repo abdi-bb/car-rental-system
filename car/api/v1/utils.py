@@ -39,4 +39,5 @@ def calculate_average_rating(reviews):
     if not reviews:
         return 0
     total_rating = sum(review.rating for review in reviews)
-    return total_rating / len(reviews)
+    average_rating = total_rating / len(reviews)
+    return round(average_rating)
