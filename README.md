@@ -31,7 +31,7 @@ Welcome to the Car Rental System project! This Django-based web application allo
 
 - **Abrhaley**
   - GitHub: [Abrsh7](https://github.com/Abrsh7/)
-  - LinkedIn: [Abrhaley on LinkedIn](https://www.linkedin.com/in/your-linkedin-profile/)
+  - LinkedIn: [Abrhaley on LinkedIn](https://www.linkedin.com/in/abrhaley-getahun/)
 
 Feel free to reach out to the authors for any questions or contributions related to the project.
 
@@ -113,9 +113,9 @@ This project is licensed under the [MIT License](LICENSE).
 For any inquiries or issues, please contact the project maintainers:
 
 - Abdi Berhe: [abdiberhe@gmail.com](mailto:abdiberhe@gmail.com)
-- Addis Simegn: [addis@email.com](mailto:addis@email.com)
-- Daniel Tsega: [daniel@email.com](mailto:daniel@email.com)
-- Abrhaley: [abrhaley@email.com](mailto:abrhaley@email.com)
+- Addis Simegn: [addis@email.com](mailto:addis@gmail.com)
+- Daniel Tsega: [daniel@email.com](mailto:daniel@gmail.com)
+- Abrhaley Gebretnsae: [abrshn7@email.com](mailto:abrshn7@gmail.com)
 
 ## API Documentation
 
