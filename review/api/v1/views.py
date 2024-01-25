@@ -27,7 +27,7 @@ class ReviewViewSet(ModelViewSet):
                                                 user=user.id)
         
         if review_queryset.exists():
-            raise serializers.ValidationError("You have already reviewed this car!")
+            raise serializers.ValidationError("You have already reviewed this car, Click on your own review if you want to update or delete!")
         # Set the user field to the current authenticated user's user instance
         serializer.save(user=self.request.user)
         
