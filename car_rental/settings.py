@@ -28,16 +28,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-62b=wqfnw#4rxclfgacigd8@g_q$i6umvx^c3=&4*%@+057cwv'
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'django-insecure-62b=wqfnw#4rxclfgacigd8@g_q$i6umvx^c3=&4*%@+057cwv'
+# SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-# DEBUG = True
-DEBUG = os.environ.get('DEBUG', 'False').lower == 'true'
+DEBUG = True
+# DEBUG = os.environ.get('DEBUG', 'False').lower == 'true'
 
-# ALLOWED_HOSTS = []
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(' ')
+ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(' ')
 
 
 # Application definition
@@ -105,15 +105,20 @@ WSGI_APPLICATION = 'car_rental.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-if not DEBUG:
-    DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'db.sqlite3',
-        }}
+# if not DEBUG:
+#     DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': 'db.sqlite3',
+#         }}
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
+    }}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
